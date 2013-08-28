@@ -4,4 +4,8 @@
 
     new euclid.NumberView(a, "a");
     new euclid.NumberView(b, "b");
+
+    var gcd = new euclid.GcdModel(a, b);
+
+    new euclid.GcdView(gcd, "recipe");
 })(euclid);
