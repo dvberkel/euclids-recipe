@@ -4,16 +4,35 @@ var euclid = (function(){
     var NumberModel = euclid.NumberModel = function NumberModel(n){
 	this.set = function set(number){
 	    n = number || 1;
+	    this.notify();
 	}
 	this.get = function get(){
 	    return n;
 	}
     };
+    NumberModel.prototype.observers = function observers(){
+	if (!this._observers) {
+	    this._observers = [];
+	}
+	return this._observers;
+    };
+    NumberModel.prototype.addObserver = function addObserver(observer){
+	this.observers().push(observer);
+    };
+    NumberModel.prototype.notify = function notify(){
+	var observers = this.observers();
+	for (var index = 0; index < observers.length; index++){
+	    var observer = observers[index];
+	    observer.call(null, this);
+	}
+    };
 
     var NumberView = euclid.NumberView = function NumberView(model, containerId) {
-	this.model = model;
-	this.containerId = containerId;
-	this.update();
+	var self = this;
+	self.model = model;
+	self.containerId = containerId;
+	self.update();
+	self.model.addObserver(function(){ self.update() });
     };
     NumberView.prototype.getContainer = function getContainer(){
 	if (!this.container) {
