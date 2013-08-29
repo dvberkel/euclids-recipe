@@ -154,11 +154,11 @@ var euclid = (function(undefined){
     function controls(self, container, body){
 	var startY = undefined; var currentY = undefined
 	var move = function move(event){
-	    currentY = event.y;
+	    currentY = event.screenY;
 	    container.textContent = self.model.get() - (currentY - startY);
 	};
 	container.addEventListener("mousedown", function(event){
-	    startY = event.y; currentY = event.y;
+	    startY = event.screenY; currentY = event.screenY;
 	    body.addEventListener("mousemove", move);
 	});
 	body.addEventListener("mouseup", function(event){
