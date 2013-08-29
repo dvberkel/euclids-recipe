@@ -1,0 +1,54 @@
+%!PS-Adobe-1.0
+%%BoundingBox: 43 43 552 359
+%%HiResBoundingBox: 43.937014 43.937014 551.338577 358.582700
+
+/setup {
+    72 25.4 div dup scale
+    1 setlinewidth
+} def
+
+/rectangle {
+    0 moveto
+    dup 0 rlineto
+    exch
+    0 exch rlineto
+    neg 0 rlineto
+    closepath
+} def
+
+/step {
+    [/w /h] dup length 1 add dict begin {exch def} forall
+	h w 0 rectangle stroke
+	0 1 w h div floor 1 sub {
+	    /i exch def
+	    h h h i mul rectangle
+	} for
+	w 0 translate
+	90 rotate
+	w h mod h
+    end
+} def
+
+save /cleanslate exch def
+
+setup
+
+/w 89 2 mul def
+/h 55 2 mul def
+
+210 w sub 2 div dup translate
+
+h w
+{
+    1 index 0 eq {
+	exit
+    } if
+    step
+} loop
+2 { pop } repeat
+
+stroke
+
+showpage
+
+cleanslate restore
