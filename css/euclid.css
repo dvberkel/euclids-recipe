@@ -1,0 +1,28 @@
+@import url(http://fonts.googleapis.com/css?family=Marck+Script);
+
+.recipe {
+    font-family: 'Marck Script', cursive;
+    max-width: 233;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+h1 {
+    font-size: 55px;
+}
+
+p, table {
+    font-size: 21px;
+}
+
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    border-spacing: 1em 0;
+}
+
+td {
+    text-align: center;
+}
