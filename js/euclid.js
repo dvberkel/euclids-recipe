@@ -74,9 +74,11 @@ var euclid = (function(){
     };
 
     var GcdView = euclid.GcdView = function GcdView(model, containerId){
-	this.model = model;
-	this.containerId = containerId;
-	this.update();
+	var self = this;
+	self.model = model;
+	self.containerId = containerId;
+	self.update();
+	self.model.addObserver(function(){ self.update(); });
     };
     GcdView.prototype.getContainer = function getContainer(){
 	if (!this.container) {
