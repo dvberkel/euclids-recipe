@@ -58,9 +58,14 @@ var euclid = (function(){
     };
 
     var GcdModel = euclid.GcdModel = function GcdModel(aModel, bModel){
-	this.aModel = aModel;
-	this.bModel = bModel;
+	var self = this;
+	var notify = function notify(u){ self.notify(); }
+	self.aModel = aModel;
+	self.bModel = bModel;
+	self.aModel.addObserver(notify);
+	self.bModel.addObserver(notify);
     };
+    extend(GcdModel.prototype, Observable);
     GcdModel.prototype.a = function a(){
 	return this.aModel.get();
     };
