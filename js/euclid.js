@@ -52,11 +52,15 @@ var euclid = (function(){
 	var currentA = new NumberModel(this.model.a());
 	var currentB = new NumberModel(this.model.b());
 
+	this.clear();
 	while (!this.same(currentA, currentB)){
 	    this.append(currentA, currentB);
 	    this.next(currentA, currentB);
 	}
 	this.append(currentA, currentB);
+    };
+    GcdView.prototype.clear = function clear(){
+	this.getContainer().innerHTML = "";
     };
     GcdView.prototype.same = function(a, b){
 	return a.get() === b.get();
