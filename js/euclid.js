@@ -1,4 +1,4 @@
-var euclid = (function(){
+var euclid = (function(undefined){
     var euclid = {};
 
     var Observable = {
@@ -120,6 +120,54 @@ var euclid = (function(){
 	} else {
 	    a.set(a.get() - b.get());
 	}
+    };
+
+    var NumberController = euclid.NumberController = function NumberController(model, containerId){
+	this.model = model;
+	this.containerId = containerId;
+	this.registerControls();
+    };
+    NumberController.prototype.getContainer = function getContainer(){
+	if (!this.container) {
+	    this.container = document.getElementById(this.containerId);
+	}
+	return this.container;
+    };
+    NumberController.prototype.getBody = function getBody(){
+	if (!this.body) {
+	    this.body = document.getElementsByTagName("body")[0];
+	}
+	return this.body;
+    }
+    NumberController.prototype.registerControls = function RegisterControls(){
+	var self = this;
+	var container = this.getContainer();
+	var body = this.getBody();
+	controls(self, container, body);
+    };
+    NumberController.prototype.increase = function increase(by){
+	console.log("called");
+	by = by || 1;
+	this.model.set(this.model.get() + by);
+    };
+
+    function controls(self, container, body){
+	var startY = undefined; var currentY = undefined
+	var move = function move(event){
+	    currentY = event.y;
+	    container.textContent = self.model.get() - (currentY - startY);
+	};
+	container.addEventListener("mousedown", function(event){
+	    startY = event.y; currentY = event.y;
+	    body.addEventListener("mousemove", move);
+	});
+	body.addEventListener("mouseup", function(event){
+	    body.removeEventListener("mousemove", move);
+	    if (startY && currentY) {
+		self.increase(-(currentY - startY));
+	    }
+	    startY = undefined; currentY = undefined;
+	});
     };
 
     return euclid;
