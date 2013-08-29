@@ -146,7 +146,6 @@ var euclid = (function(undefined){
 	controls(self, container, body);
     };
     NumberController.prototype.increase = function increase(by){
-	console.log("called");
 	by = by || 1;
 	this.model.set(this.model.get() + by);
     };
