@@ -1,6 +1,33 @@
 var euclid = (function(){
     var euclid = {};
 
+    var Observable = {
+	observers : function observers(){
+	    if (!this._observers) {
+		this._observers = [];
+	    }
+	    return this._observers;
+	},
+	addObserver : function addObserver(observer){
+	    this.observers().push(observer);
+	},
+	notify : function notify(){
+	    var observers = this.observers();
+	    for (var index = 0; index < observers.length; index++){
+		var observer = observers[index];
+		observer.call(null, this);
+	    }
+	}
+    }
+
+    var extend = function(target, extension){
+	for (key in extension) {
+	    if (extension.hasOwnProperty(key)) {
+		target[key] = extension[key];
+	    }
+	}
+    };
+
     var NumberModel = euclid.NumberModel = function NumberModel(n){
 	this.set = function set(number){
 	    n = number || 1;
@@ -10,22 +37,7 @@ var euclid = (function(){
 	    return n;
 	}
     };
-    NumberModel.prototype.observers = function observers(){
-	if (!this._observers) {
-	    this._observers = [];
-	}
-	return this._observers;
-    };
-    NumberModel.prototype.addObserver = function addObserver(observer){
-	this.observers().push(observer);
-    };
-    NumberModel.prototype.notify = function notify(){
-	var observers = this.observers();
-	for (var index = 0; index < observers.length; index++){
-	    var observer = observers[index];
-	    observer.call(null, this);
-	}
-    };
+    extend(NumberModel.prototype, Observable);
 
     var NumberView = euclid.NumberView = function NumberView(model, containerId) {
 	var self = this;
