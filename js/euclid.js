@@ -62,7 +62,7 @@ var euclid = (function(){
     GcdView.prototype.clear = function clear(){
 	this.getContainer().innerHTML = "";
     };
-    GcdView.prototype.same = function(a, b){
+    GcdView.prototype.same = function same(a, b){
 	return a.get() === b.get();
     };
     GcdView.prototype.append = function append(a, b){
