@@ -30,7 +30,7 @@ var euclid = (function(undefined){
 
     var NumberModel = euclid.NumberModel = function NumberModel(n){
 	this.set = function set(number){
-	    n = number || 1;
+	    n = Math.max(number || 1, 1);
 	    this.notify();
 	}
 	this.get = function get(){
